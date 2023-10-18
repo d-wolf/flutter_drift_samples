@@ -3,7 +3,7 @@ import 'package:flutter_sample_drift/data/datasources/app_database.dart';
 import 'package:flutter_sample_drift/domain/entities/store.dart';
 import 'package:flutter_sample_drift/domain/entities/store_item.dart';
 
-extension PointDbExtensions on StoreItem {
+extension StoreItemDbExtensions on StoreItem {
   StoreItemsTableCompanion toCompanion() {
     return StoreItemsTableCompanion(
       id: id != null ? Value(id!) : const Value.absent(),
