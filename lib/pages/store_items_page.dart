@@ -15,7 +15,7 @@ class StoreItemsPage extends StatefulWidget {
 
 class _StoreItemsPageState extends State<StoreItemsPage> {
   final _repo = sl<StoreRepository>();
-  final List<StoreItem> _list = [];
+  final _list = <StoreItem>[];
 
   @override
   void initState() {

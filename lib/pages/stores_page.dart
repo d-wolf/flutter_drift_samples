@@ -3,6 +3,7 @@ import 'package:flutter_sample_drift/domain/entities/store.dart';
 import 'package:flutter_sample_drift/domain/repositories/store_repository.dart';
 import 'package:flutter_sample_drift/main.dart';
 import 'package:flutter_sample_drift/pages/store_items_page.dart';
+import 'package:flutter_sample_drift/widgets/store_name_dialog.dart';
 
 class StoresPage extends StatefulWidget {
   const StoresPage({super.key});
@@ -14,7 +15,7 @@ class StoresPage extends StatefulWidget {
 class _StoresPageState extends State<StoresPage> {
   final _repo = sl<StoreRepository>();
   final _textEditingController = TextEditingController();
-  final List<Store> _list = [];
+  final _list = <Store>[];
 
   @override
   void initState() {
@@ -36,16 +37,50 @@ class _StoresPageState extends State<StoresPage> {
             leading: CircleAvatar(child: Text('${_list[index].id}')),
             title: Text(_list[index].name),
             subtitle: Text('${_list[index].createdAt}'),
-            trailing: IconButton(
-              onPressed: () async {
-                final store = _list[index];
-                await _repo.deleteStore(store);
-                final all = await _repo.getPointsForStore(store);
-                // any items left?
-                debugPrint('leftover: $all');
-                await _reload();
-              },
-              icon: const Icon(Icons.delete),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    _textEditingController.text = _list[index].name;
+                    await showDialog<AlertDialog>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return StoreNameDialog(
+                          textEditingController: _textEditingController,
+                          onOk: () async {
+                            await _repo
+                                .updateStore(
+                                  Store(
+                                    id: _list[index].id,
+                                    createdAt: _list[index].createdAt,
+                                    name: _textEditingController.text,
+                                  ),
+                                )
+                                .then((value) => Navigator.of(context).pop());
+                          },
+                          onCancel: () {
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      },
+                    );
+                    await _reload();
+                  },
+                  icon: const Icon(Icons.edit),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final store = _list[index];
+                    await _repo.deleteStore(store);
+                    final all = await _repo.getPointsForStore(store);
+                    // any items left?
+                    debugPrint('leftover: $all');
+                    await _reload();
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ],
             ),
             onTap: () {
               Navigator.of(context).push(
@@ -62,33 +97,24 @@ class _StoresPageState extends State<StoresPage> {
           _textEditingController.clear();
           await showDialog<AlertDialog>(
             context: context,
-            builder: (_) => AlertDialog(
-              content: TextField(
-                decoration: const InputDecoration(label: Text('Name')),
-                controller: _textEditingController,
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    await _repo
-                        .insertStore(
-                          Store(
-                            createdAt: DateTime.now(),
-                            name: _textEditingController.text,
-                          ),
-                        )
-                        .then((value) => Navigator.of(context).pop());
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
+            builder: (BuildContext context) {
+              return StoreNameDialog(
+                textEditingController: _textEditingController,
+                onOk: () async {
+                  await _repo
+                      .insertStore(
+                        Store(
+                          createdAt: DateTime.now(),
+                          name: _textEditingController.text,
+                        ),
+                      )
+                      .then((value) => Navigator.of(context).pop());
+                },
+                onCancel: () {
+                  Navigator.of(context).pop();
+                },
+              );
+            },
           );
           await _reload();
         },
