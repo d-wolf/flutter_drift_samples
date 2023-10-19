@@ -6,7 +6,7 @@ abstract class StoreRepository {
   Future<List<Store>> getAllStores();
   Future<void> updateStore(Store store);
   Future<void> deleteStore(Store store);
-  Future<void> insertPoint(StoreItem point, Store store);
-  Future<List<StoreItem>> getPointsForStore(Store store);
-  Future<void> deletePoint(StoreItem point);
+  Future<void> insertItem(StoreItem item, Store store);
+  Future<List<StoreItem>> getItemsForStore(Store store);
+  Future<void> deleteItem(StoreItem point);
 }

@@ -29,19 +29,19 @@ class StoreRepositoryImpl implements StoreRepository {
   }
 
   @override
-  Future<void> insertPoint(StoreItem point, Store store) async {
+  Future<void> insertItem(StoreItem point, Store store) async {
     await _database.into(_database.storeItemsTable).insert(point.toCompanion());
   }
 
   @override
-  Future<List<StoreItem>> getPointsForStore(Store store) async {
+  Future<List<StoreItem>> getItemsForStore(Store store) async {
     return (_database.select(_database.storeItemsTable)
           ..where((tbl) => tbl.storeId.equals(store.id!)))
         .get();
   }
 
   @override
-  Future<void> deletePoint(StoreItem point) async {
+  Future<void> deleteItem(StoreItem point) async {
     await _database
         .delete(_database.storeItemsTable)
         .delete(point.toCompanion());

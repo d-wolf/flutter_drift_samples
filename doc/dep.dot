@@ -1,0 +1,127 @@
+digraph "" {
+  graph [style=rounded fontname="Arial Black" fontsize=13 penwidth=2.6];
+  node [shape=rect style="filled,rounded" fontname=Arial fontsize=15 fillcolor=Lavender penwidth=1.3];
+  edge [penwidth=1.3];
+  "/main.dart" [label="main"];
+  "/data/datasources/app_database.dart" [label="app_database"];
+  "/data/datasources/app_database.g.dart" [label="app_database.g"];
+  "/data/utils/extensions.dart" [label="extensions"];
+  "/data/repositories/store_repository_impl.dart" [label="store_repository_impl"];
+  "/data/models/stores_table.dart" [label="stores_table"];
+  "/data/models/store_items_table.dart" [label="store_items_table"];
+  "/domain/repositories/store_repository.dart" [label="store_repository"];
+  "/domain/entities/store_item.dart" [label="store_item"];
+  "/domain/entities/store.dart" [label="store"];
+  "/presentation/store_items/cubit/store_items_state.dart" [label="store_items_state"];
+  "/presentation/store_items/cubit/store_items_cubit.dart" [label="store_items_cubit"];
+  "/presentation/store_items/page/store_items_page.dart" [label="store_items_page"];
+  "/presentation/stores/cubit/stores_cubit.dart" [label="stores_cubit"];
+  "/presentation/stores/cubit/stores_state.dart" [label="stores_state"];
+  "/presentation/stores/page/stores_page.dart" [label="stores_page"];
+  "/presentation/stores/widgets/store_name_dialog.dart" [label="store_name_dialog"];
+  subgraph "cluster~" {
+    label="lib";
+    "/main.dart";
+    subgraph "cluster~/data" {
+      label="data";
+      subgraph "cluster~/data/datasources" {
+        label="datasources";
+        "/data/datasources/app_database.dart";
+        "/data/datasources/app_database.g.dart";
+      }
+      subgraph "cluster~/data/utils" {
+        label="utils";
+        "/data/utils/extensions.dart";
+      }
+      subgraph "cluster~/data/repositories" {
+        label="repositories";
+        "/data/repositories/store_repository_impl.dart";
+      }
+      subgraph "cluster~/data/models" {
+        label="models";
+        "/data/models/stores_table.dart";
+        "/data/models/store_items_table.dart";
+      }
+    }
+    subgraph "cluster~/domain" {
+      label="domain";
+      subgraph "cluster~/domain/repositories" {
+        label="repositories";
+        "/domain/repositories/store_repository.dart";
+      }
+      subgraph "cluster~/domain/entities" {
+        label="entities";
+        "/domain/entities/store_item.dart";
+        "/domain/entities/store.dart";
+      }
+    }
+    subgraph "cluster~/presentation" {
+      label="presentation";
+      subgraph "cluster~/presentation/store_items" {
+        label="store_items";
+        subgraph "cluster~/presentation/store_items/cubit" {
+          label="cubit";
+          "/presentation/store_items/cubit/store_items_state.dart";
+          "/presentation/store_items/cubit/store_items_cubit.dart";
+        }
+        subgraph "cluster~/presentation/store_items/page" {
+          label="page";
+          "/presentation/store_items/page/store_items_page.dart";
+        }
+      }
+      subgraph "cluster~/presentation/stores" {
+        label="stores";
+        subgraph "cluster~/presentation/stores/cubit" {
+          label="cubit";
+          "/presentation/stores/cubit/stores_cubit.dart";
+          "/presentation/stores/cubit/stores_state.dart";
+        }
+        subgraph "cluster~/presentation/stores/page" {
+          label="page";
+          "/presentation/stores/page/stores_page.dart";
+        }
+        subgraph "cluster~/presentation/stores/widgets" {
+          label="widgets";
+          "/presentation/stores/widgets/store_name_dialog.dart";
+        }
+      }
+    }
+  }
+  "/main.dart" -> "/data/datasources/app_database.dart";
+  "/main.dart" -> "/data/repositories/store_repository_impl.dart";
+  "/main.dart" -> "/domain/repositories/store_repository.dart";
+  "/main.dart" -> "/presentation/store_items/cubit/store_items_cubit.dart";
+  "/main.dart" -> "/presentation/stores/cubit/stores_cubit.dart";
+  "/main.dart" -> "/presentation/stores/page/stores_page.dart";
+  "/data/datasources/app_database.dart" -> "/data/models/store_items_table.dart";
+  "/data/datasources/app_database.dart" -> "/data/models/stores_table.dart";
+  "/data/datasources/app_database.dart" -> "/domain/entities/store.dart";
+  "/data/datasources/app_database.dart" -> "/domain/entities/store_item.dart";
+  "/data/utils/extensions.dart" -> "/data/datasources/app_database.dart";
+  "/data/utils/extensions.dart" -> "/domain/entities/store.dart";
+  "/data/utils/extensions.dart" -> "/domain/entities/store_item.dart";
+  "/data/repositories/store_repository_impl.dart" -> "/data/datasources/app_database.dart";
+  "/data/repositories/store_repository_impl.dart" -> "/data/utils/extensions.dart";
+  "/data/repositories/store_repository_impl.dart" -> "/domain/entities/store.dart";
+  "/data/repositories/store_repository_impl.dart" -> "/domain/entities/store_item.dart";
+  "/data/repositories/store_repository_impl.dart" -> "/domain/repositories/store_repository.dart";
+  "/data/models/stores_table.dart" -> "/domain/entities/store.dart";
+  "/data/models/store_items_table.dart" -> "/data/models/stores_table.dart";
+  "/data/models/store_items_table.dart" -> "/domain/entities/store_item.dart";
+  "/domain/repositories/store_repository.dart" -> "/domain/entities/store.dart";
+  "/domain/repositories/store_repository.dart" -> "/domain/entities/store_item.dart";
+  "/presentation/store_items/cubit/store_items_cubit.dart" -> "/domain/entities/store.dart";
+  "/presentation/store_items/cubit/store_items_cubit.dart" -> "/domain/entities/store_item.dart";
+  "/presentation/store_items/cubit/store_items_cubit.dart" -> "/domain/repositories/store_repository.dart";
+  "/presentation/store_items/page/store_items_page.dart" -> "/domain/entities/store.dart";
+  "/presentation/store_items/page/store_items_page.dart" -> "/domain/entities/store_item.dart";
+  "/presentation/store_items/page/store_items_page.dart" -> "/presentation/store_items/cubit/store_items_cubit.dart";
+  "/presentation/stores/cubit/stores_cubit.dart" -> "/domain/entities/store.dart";
+  "/presentation/stores/cubit/stores_cubit.dart" -> "/domain/repositories/store_repository.dart";
+  "/presentation/stores/page/stores_page.dart" -> "/domain/entities/store.dart";
+  "/presentation/stores/page/stores_page.dart" -> "/main.dart";
+  "/presentation/stores/page/stores_page.dart" -> "/presentation/store_items/cubit/store_items_cubit.dart";
+  "/presentation/stores/page/stores_page.dart" -> "/presentation/store_items/page/store_items_page.dart";
+  "/presentation/stores/page/stores_page.dart" -> "/presentation/stores/cubit/stores_cubit.dart";
+  "/presentation/stores/page/stores_page.dart" -> "/presentation/stores/widgets/store_name_dialog.dart";
+}
