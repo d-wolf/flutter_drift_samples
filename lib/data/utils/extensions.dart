@@ -9,6 +9,7 @@ extension StoreItemDbExtensions on StoreItem {
       id: id != null ? Value(id!) : const Value.absent(),
       storeId: Value(storeId),
       createdAt: Value(createdAt),
+      content: Value(content),
     );
   }
 }

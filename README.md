@@ -1,6 +1,6 @@
 # Flutter Drift Sample
 
-Shows how to use [drift](https://pub.dev/packages/drift) by modelling a simple parent - child relationship with foreign keys and cascade deletes.
+Shows how to use [drift](https://pub.dev/packages/drift) by modelling a simple relational DB with parent - child relationship using foreign keys constraints with cascade deletes. Furthermore table changes, following migrations and testing those are shown exemplary.
 
 ![alt text](doc/relationship.svg)
 

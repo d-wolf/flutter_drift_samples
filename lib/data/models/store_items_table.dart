@@ -11,4 +11,7 @@ class StoreItemsTable extends Table {
         'NOT NULL REFERENCES stores_table(id) ON DELETE CASCADE',
       )();
   DateTimeColumn get createdAt => dateTime()();
+
+  /// new, added column in v2
+  TextColumn get content => text()();
 }

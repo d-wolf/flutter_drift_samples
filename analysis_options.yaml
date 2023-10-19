@@ -6,5 +6,6 @@ linter:
 
 analyzer:
   exclude:
-    - '/doc'
+    - '/doc/**'
+    - '/test/generated_migrations/**'
     - '**.g.dart'
