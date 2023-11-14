@@ -3,4 +3,4 @@ This repo contains several samples for sqlite based DB [drift](https://pub.dev/p
 
 ## ToC
 1. [Simple](/01_simple/)
-2. [Self Referencing Table](/02_simple/)
+2. [Self Referencing Table](/02_drift_self_ref_table/)
